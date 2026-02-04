@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Cucina Italiana | Ricette Complete</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-year">EST. 1929</span>
+        <h1>La Cucina<br><em>Italiana</em></h1>
+        <div class="brand-line"></div>
+      </div>
+      <nav class="nav">
+        <a href="#ricette" class="nav-link active">Ricette</a>
+        <a href="#preferiti" class="nav-link">Preferiti</a>
+        <a href="#ordini" class="nav-link">Ordini</a>
+      </nav>
+      <div class="user-area" id="userArea">
+        <div class="user-status" id="userStatus">
+          <span class="status-dot"></span>
+          <span>Non autenticato</span>
+        </div>
+        <button class="btn-ghost" id="logoutBtn" hidden>Esci</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-label">Edizione Speciale</span>
+        <h2>Dal ricettario<br>alla tua tavola</h2>
+        <p class="hero-lead">
+          Ingredienti con misure precise.<br>
+          Costi calcolati in tempo reale.<br>
+          <strong>Esperienza culinaria autentica.</strong>
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong class="stat-number">200+</strong>
+            <span class="stat-label">Ricette</span>
+          </div>
+          <div class="stat">
+            <strong class="stat-number">5★</strong>
+            <span class="stat-label">Media</span>
+          </div>
+          <div class="stat">
+            <strong class="stat-number">~15€</strong>
+            <span class="stat-label">Per persona</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-auth">
+        <div class="auth-card" id="authCard">
+          <div class="auth-header">
+            <h3>Accesso</h3>
+            <p class="auth-subtitle">Autenticati per acquistare</p>
+          </div>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="giulia.bianchi@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn-primary">Accedi al catalogo</button>
+            <p class="form-hint">Credenziali di test disponibili nel database seed</p>
+          </form>
+          <div class="login-state" id="loginState" hidden>
+            <div class="success-icon">✓</div>
+            <p><strong>Autenticato</strong></p>
+            <p class="form-hint">Puoi ora aggiungere ricette al carrello</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="controls-left">
+        <h3 class="section-title">Catalogo Ricette</h3>
+        <div class="filter-group">
+          <label for="genreSelect" class="filter-label">Filtra per categoria</label>
+          <select id="genreSelect" class="select-fancy">
+            <option value="">Tutte le categorie</option>
+          </select>
+        </div>
+      </div>
+      <div class="legend">
+        <span class="legend-title">Legenda</span>
+        <div class="legend-items">
+          <div class="legend-item">
+            <div class="legend-icon legend-cost"></div>
+            <span>Costo</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-icon legend-wine"></div>
+            <span>Vino</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="grid">
+      <section class="recipes" id="recipes"></section>
+      <aside class="cart" id="cart">
+        <div class="cart-sticky">
+          <div class="cart-header">
+            <h3>Il Tuo Ordine</h3>
+            <span class="cart-count" id="cartCount">0</span>
+          </div>
+          <div class="cart-divider"></div>
+          <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              <p>Carrello vuoto</p>
+            </div>
+          </div>
+          <div class="cart-footer">
+            <div class="cart-total">
+              <span class="total-label">Totale</span>
+              <strong class="total-value" id="cartTotal">€ 0,00</strong>
+            </div>
+            <button class="btn-primary btn-block" id="checkoutBtn" disabled>
+              Conferma acquisto
+            </button>
+            <p class="cart-note">L'ordine verrà registrato e il carrello svuotato</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

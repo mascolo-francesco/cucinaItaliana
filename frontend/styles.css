@@ -1,0 +1,873 @@
+/* ==========================================
+   DESIGN SYSTEM - Rivista Alta Cucina
+   ========================================== */
+
+:root {
+  /* Palette Ceramiche Italiane */
+  --sage: #7a886f;
+  --cream: #faf7f2;
+  --terracotta: #c65d3b;
+  --charcoal: #2a2520;
+  --olive-light: #9ba88c;
+  --sand: #e8ded0;
+  --white: #ffffff;
+  --shadow-sm: 0 2px 8px rgba(42, 37, 32, 0.08);
+  --shadow-md: 0 8px 24px rgba(42, 37, 32, 0.12);
+  --shadow-lg: 0 16px 48px rgba(42, 37, 32, 0.18);
+  
+  /* Typography Scale (1.25) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.563rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+  --text-4xl: 3.052rem;
+  --text-5xl: 3.815rem;
+  
+  /* Spacing (8px base) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   RESET & BASE
+   ========================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ==========================================
+   LAYOUT
+   ========================================== */
+
+.page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+/* ==========================================
+   TOPBAR
+   ========================================== */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--charcoal);
+  flex-wrap: wrap;
+}
+
+.brand {
+  position: relative;
+}
+
+.brand-year {
+  display: block;
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.brand h1 {
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+}
+
+.brand h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.brand-line {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: var(--terracotta);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--charcoal);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.nav-link:hover {
+  background: var(--sand);
+}
+
+.nav-link.active {
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--space-2);
+  right: var(--space-2);
+  height: 2px;
+  background: var(--terracotta);
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  background: var(--white);
+  border: 1px solid var(--sand);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sage);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ==========================================
+   HERO
+   ========================================== */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+  padding: var(--space-6) 0;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-8);
+  }
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hero-label {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sage);
+  padding: var(--space-1) var(--space-2);
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.hero h2 {
+  font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.hero-lead {
+  font-size: var(--text-lg);
+  color: var(--sage);
+  max-width: 480px;
+  line-height: 1.8;
+}
+
+.hero-lead strong {
+  color: var(--charcoal);
+  font-weight: 600;
+}
+
+.hero-stats {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat-number {
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--terracotta);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sage);
+  font-weight: 600;
+}
+
+/* ==========================================
+   AUTH CARD
+   ========================================== */
+
+.hero-auth {
+  display: flex;
+  align-items: flex-start;
+}
+
+.auth-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--sand);
+}
+
+.auth-header {
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--sand);
+}
+
+.auth-header h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-1);
+}
+
+.auth-subtitle {
+  font-size: var(--text-sm);
+  color: var(--sage);
+  margin: 0;
+}
+
+.form-group {
+  margin-bottom: var(--space-3);
+}
+
+.form-group label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+  color: var(--charcoal);
+}
+
+.form-group input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--sand);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-family: inherit;
+  transition: all var(--transition-fast);
+  background: var(--cream);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--sage);
+  background: var(--white);
+}
+
+.form-hint {
+  font-size: var(--text-xs);
+  color: var(--sage);
+  margin-top: var(--space-2);
+  line-height: 1.4;
+}
+
+.login-state {
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-3);
+  background: var(--sage);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+}
+
+.login-state p {
+  margin-bottom: var(--space-1);
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.btn-primary {
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  background: var(--terracotta);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #b05232;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  padding: var(--space-1) var(--space-3);
+  background: transparent;
+  color: var(--charcoal);
+  border: 1px solid var(--sand);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-ghost:hover {
+  background: var(--white);
+  border-color: var(--sage);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ==========================================
+   CONTROLS
+   ========================================== */
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding: var(--space-3) 0;
+  flex-wrap: wrap;
+}
+
+.controls-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.section-title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin: 0;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filter-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--sage);
+}
+
+.select-fancy {
+  padding: var(--space-1) var(--space-3);
+  border: 2px solid var(--sand);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  font-weight: 500;
+  background: var(--white);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 200px;
+}
+
+.select-fancy:focus {
+  outline: none;
+  border-color: var(--sage);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--sand);
+}
+
+.legend-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sage);
+}
+
+.legend-items {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.legend-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-cost {
+  background: var(--terracotta);
+}
+
+.legend-wine {
+  background: var(--sage);
+}
+
+/* ==========================================
+   GRID LAYOUT
+   ========================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 380px;
+    gap: var(--space-6);
+  }
+}
+
+/* ==========================================
+   RECIPES
+   ========================================== */
+
+.recipes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recipe-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  border: 1px solid var(--sand);
+  animation: fadeInUp var(--transition-slow) backwards;
+}
+
+.recipe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.recipe-card:hover img {
+  transform: scale(1.05);
+}
+
+.recipe-meta {
+  padding: var(--space-3);
+}
+
+.recipe-meta h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+  font-weight: 700;
+}
+
+.recipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  background: var(--cream);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--sage);
+  border: 1px solid var(--sand);
+}
+
+.recipe-meta p {
+  font-size: var(--text-sm);
+  color: var(--sage);
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+}
+
+.recipe-meta p strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--text-xl);
+  color: var(--terracotta);
+  font-weight: 700;
+  margin-top: var(--space-2);
+}
+
+.recipe-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--sand);
+}
+
+.recipe-actions input,
+.recipe-actions select {
+  padding: var(--space-1) var(--space-2);
+  border: 2px solid var(--sand);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  background: var(--cream);
+  transition: all var(--transition-fast);
+}
+
+.recipe-actions input:focus,
+.recipe-actions select:focus {
+  outline: none;
+  border-color: var(--sage);
+  background: var(--white);
+}
+
+.recipe-actions button {
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+/* ==========================================
+   CART
+   ========================================== */
+
+.cart {
+  position: relative;
+}
+
+.cart-sticky {
+  position: sticky;
+  top: var(--space-3);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--charcoal);
+  overflow: hidden;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+.cart-header h3 {
+  font-size: var(--text-xl);
+  margin: 0;
+  color: var(--white);
+}
+
+.cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 var(--space-1);
+  background: var(--terracotta);
+  color: var(--white);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.cart-divider {
+  height: 2px;
+  background: linear-gradient(to right, var(--terracotta), var(--sage));
+}
+
+.cart-items {
+  padding: var(--space-3);
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) var(--space-3);
+  color: var(--sage);
+  text-align: center;
+}
+
+.cart-empty svg {
+  margin-bottom: var(--space-2);
+  opacity: 0.5;
+}
+
+.cart-empty p {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.cart-item {
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--sand);
+}
+
+.cart-item strong {
+  display: block;
+  font-size: var(--text-base);
+  margin-bottom: var(--space-1);
+  color: var(--charcoal);
+}
+
+.cart-item div {
+  font-size: var(--text-sm);
+  color: var(--sage);
+  margin-bottom: 4px;
+}
+
+.cart-item button {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  padding: 4px var(--space-2);
+}
+
+.cart-footer {
+  padding: var(--space-4);
+  background: var(--cream);
+  border-top: 2px solid var(--sand);
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--charcoal);
+}
+
+.total-label {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--sage);
+}
+
+.total-value {
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--terracotta);
+}
+
+.cart-note {
+  font-size: var(--text-xs);
+  color: var(--sage);
+  text-align: center;
+  margin-top: var(--space-2);
+  line-height: 1.4;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .nav {
+    width: 100%;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .legend {
+    width: 100%;
+  }
+  
+  .recipes {
+    grid-template-columns: 1fr;
+  }
+  
+  .cart-sticky {
+    position: relative;
+    top: 0;
+  }
+}
