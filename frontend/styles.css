@@ -840,6 +840,103 @@ button {
 }
 
 /* ==========================================
+   ORDERS
+   ========================================== */
+
+.orders-section {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--charcoal);
+}
+
+.orders-header {
+  margin-bottom: var(--space-4);
+}
+
+.orders-header h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-1);
+}
+
+.orders-header p {
+  color: var(--sage);
+  font-size: var(--text-sm);
+}
+
+.orders-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.order-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--sand);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-3);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: center;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--sand);
+}
+
+.order-meta {
+  font-size: var(--text-xs);
+  color: var(--sage);
+  margin-top: 2px;
+}
+
+.order-total {
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--text-xl);
+  color: var(--terracotta);
+  font-weight: 700;
+}
+
+.order-items {
+  list-style: none;
+  display: grid;
+  gap: var(--space-1);
+  padding: 0;
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--charcoal);
+}
+
+.order-items li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  color: var(--sage);
+}
+
+.order-items li span:last-child {
+  color: var(--charcoal);
+  font-weight: 600;
+}
+
+.order-wine {
+  justify-content: flex-start;
+  color: var(--sage);
+  font-size: var(--text-xs);
+}
+
+.orders-empty {
+  padding: var(--space-4);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--sand);
+  color: var(--sage);
+  text-align: center;
+}
+
+/* ==========================================
    RESPONSIVE
    ========================================== */
 

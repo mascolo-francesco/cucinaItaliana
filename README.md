@@ -6,4 +6,5 @@ Dal punto di vista dell’esperienza utente, chi è autenticato può aggiungere 
 
 Rispetto a SPEC.md, tutte le funzionalità richieste sono presenti e coerenti. Non ci sono parti mancanti rispetto allo spec e questo va considerato completo.
 
-Ci sono alcune voci di navigazione in alto (“Preferiti” e “Ordini”) che attualmente non portano a una schermata o funzionalità, perché non sono previste da SPEC.md. 
+Come funzionalità aggiuntiva, oltre a quanto richiesto dallo spec, è stata aggiunta una pagina “Ordini” separata (`frontend/orders.html`) che mostra lo storico degli acquisti dell’utente autenticato. La voce “Ordini” in navbar porta a questa pagina. La voce “Preferiti” invece non è implementata, perché non è prevista da SPEC.md.
+

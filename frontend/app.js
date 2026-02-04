@@ -20,6 +20,7 @@ const cartItemsEl = document.getElementById("cartItems");
 const cartTotalEl = document.getElementById("cartTotal");
 const cartCountEl = document.getElementById("cartCount");
 const checkoutBtn = document.getElementById("checkoutBtn");
+const ordersListEl = document.getElementById("ordersList");
 
 const currency = (value) => `€ ${value.toFixed(2).replace(".", ",")}`;
 
@@ -85,6 +86,73 @@ async function loadCart() {
   const data = await apiFetch("/cart");
   cart = data;
   renderCart();
+}
+
+async function loadOrders() {
+  if (!ordersListEl) return;
+  if (!currentUser) {
+    ordersListEl.innerHTML = `
+      <div class="orders-empty">
+        <p>Accedi per vedere i tuoi ordini registrati.</p>
+      </div>
+    `;
+    return;
+  }
+  try {
+    const data = await apiFetch("/orders");
+    renderOrders(data.orders || []);
+  } catch (error) {
+    ordersListEl.innerHTML = `
+      <div class="orders-empty">
+        <p>Non è stato possibile caricare gli ordini.</p>
+      </div>
+    `;
+  }
+}
+
+function renderOrders(orders) {
+  ordersListEl.innerHTML = "";
+  if (!orders.length) {
+    ordersListEl.innerHTML = `
+      <div class="orders-empty">
+        <p>Nessun ordine registrato al momento.</p>
+      </div>
+    `;
+    return;
+  }
+
+  orders.forEach((order) => {
+    const orderEl = document.createElement("article");
+    orderEl.className = "order-card";
+    const date = order.created_at ? new Date(order.created_at) : null;
+    const dateLabel = date ? date.toLocaleDateString("it-IT") : "Data non disponibile";
+
+    const itemsHtml = (order.items || [])
+      .map(
+        (item) => `
+          <li>
+            <span>${item.recipe_title} · ${item.persons} persone</span>
+            <span>${currency(item.item_total || 0)}</span>
+          </li>
+          ${item.wine_name ? `<li class="order-wine">Vino: ${item.wine_name}</li>` : ""}
+        `
+      )
+      .join("");
+
+    orderEl.innerHTML = `
+      <div class="order-header">
+        <div>
+          <strong>Ordine #${order.id}</strong>
+          <div class="order-meta">${dateLabel} · ${order.status || "confermato"}</div>
+        </div>
+        <div class="order-total">${currency(order.total || 0)}</div>
+      </div>
+      <ul class="order-items">
+        ${itemsHtml}
+      </ul>
+    `;
+    ordersListEl.appendChild(orderEl);
+  });
 }
 
 function renderRecipes() {
@@ -234,6 +302,7 @@ loginForm.addEventListener("submit", async (event) => {
     });
     await loadMe();
     await loadCart();
+    await loadOrders();
     renderRecipes();
   } catch (error) {
     alert(error.message);
@@ -245,6 +314,7 @@ logoutBtn.addEventListener("click", async () => {
   currentUser = null;
   updateAuthUI();
   await loadCart();
+  await loadOrders();
   renderRecipes();
 });
 
@@ -254,6 +324,7 @@ checkoutBtn.addEventListener("click", async () => {
   try {
     await apiFetch("/checkout", { method: "POST" });
     await loadCart();
+    await loadOrders();
     alert("Acquisto confermato! Ordine registrato.");
   } catch (error) {
     alert(error.message);
@@ -266,6 +337,7 @@ checkoutBtn.addEventListener("click", async () => {
     await loadGenres();
     await loadRecipes();
     await loadCart();
+    await loadOrders();
   } catch (error) {
     console.error(error);
   }

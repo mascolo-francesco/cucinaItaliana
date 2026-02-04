@@ -403,5 +403,69 @@ def checkout():
         conn.close()
 
 
+@app.get("/api/orders")
+def list_orders():
+    auth_error = require_auth()
+    if auth_error:
+        return auth_error
+
+    conn = get_connection()
+    try:
+        cursor = conn.cursor(buffered=True)
+        cursor.execute(
+            """
+            SELECT o.id AS order_id,
+                   o.totale AS order_total,
+                   o.created_at AS order_date,
+                   o.stato AS order_status,
+                   oi.id AS item_id,
+                   oi.num_persone AS persons,
+                   oi.costo_unitario AS unit_cost,
+                   oi.costo_totale AS item_total,
+                   r.titolo AS recipe_title,
+                   w.nome AS wine_name
+            FROM ordini o
+            LEFT JOIN order_items oi ON oi.ordine_id = o.id
+            LEFT JOIN ricette r ON r.id = oi.ricetta_id
+            LEFT JOIN vini w ON w.id = oi.vino_id
+            WHERE o.utente_id = %s
+            ORDER BY o.created_at DESC, oi.id ASC
+            """,
+            (current_user_id(),),
+        )
+
+        orders = []
+        order_map = {}
+        for row in cursor.fetchall():
+            data = _row_to_dict(cursor, row)
+            order_id = data["order_id"]
+            if order_id not in order_map:
+                order_entry = {
+                    "id": order_id,
+                    "total": data["order_total"],
+                    "created_at": data["order_date"],
+                    "status": data["order_status"],
+                    "items": [],
+                }
+                orders.append(order_entry)
+                order_map[order_id] = order_entry
+
+            if data["item_id"] is not None:
+                order_map[order_id]["items"].append(
+                    {
+                        "id": data["item_id"],
+                        "recipe_title": data["recipe_title"],
+                        "persons": data["persons"],
+                        "unit_cost": data["unit_cost"],
+                        "item_total": data["item_total"],
+                        "wine_name": data["wine_name"],
+                    }
+                )
+
+        return jsonify({"orders": orders})
+    finally:
+        conn.close()
+
+
 if __name__ == "__main__":
     app.run(debug=True)

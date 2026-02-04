@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Cucina Italiana | Ordini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-year">EST. 1929</span>
+        <h1>La Cucina<br><em>Italiana</em></h1>
+        <div class="brand-line"></div>
+      </div>
+      <nav class="nav">
+        <a href="index.html#ricette" class="nav-link">Ricette</a>
+        <a href="#preferiti" class="nav-link">Preferiti</a>
+        <a href="orders.html" class="nav-link active">Ordini</a>
+      </nav>
+      <div class="user-area" id="userArea">
+        <div class="user-status" id="userStatus">
+          <span class="status-dot"></span>
+          <span>Non autenticato</span>
+        </div>
+        <button class="btn-ghost" id="logoutBtn" hidden>Esci</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-label">Storico Acquisti</span>
+        <h2>I tuoi ordini<br>in un colpo d'occhio</h2>
+        <p class="hero-lead">
+          Qui trovi tutti gli acquisti registrati.<br>
+          Ogni ordine mostra ricette, persone e totale.
+        </p>
+      </div>
+      <div class="hero-auth">
+        <div class="auth-card" id="authCard">
+          <div class="auth-header">
+            <h3>Accesso</h3>
+            <p class="auth-subtitle">Autenticati per vedere gli ordini</p>
+          </div>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="giulia.bianchi@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="btn-primary">Accedi</button>
+            <p class="form-hint">Credenziali di test disponibili nel database seed</p>
+          </form>
+          <div class="login-state" id="loginState" hidden>
+            <div class="success-icon">✓</div>
+            <p><strong>Autenticato</strong></p>
+            <p class="form-hint">Ora puoi vedere i tuoi ordini</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="orders-section" id="ordini">
+      <div class="orders-header">
+        <h3>I Tuoi Ordini</h3>
+        <p>Qui trovi lo storico degli acquisti registrati.</p>
+      </div>
+      <div class="orders-list" id="ordersList"></div>
+    </section>
+  </div>
+
+  <script src="orders.js"></script>
+</body>
+</html>
